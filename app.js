@@ -5,15 +5,15 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 
-
-
-var searchButton = document.getElementById("search-btn");
-var searchInputTxt = document.getElementById("search");
-
+// Button Keypress
+const searchButton = document.getElementById("search-btn");
+const searchInputTxt = document.getElementById("search");
 searchInputTxt.addEventListener("keypress", function(event) {
     if (event.key == "Enter")
         searchButton.click();
 });
+
+
 // selected image 
 let sliders = [];
 

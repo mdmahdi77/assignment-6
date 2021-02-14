@@ -9,7 +9,6 @@ const sliderContainer = document.getElementById('sliders');
 const searchButton = document.getElementById("search-btn");
 const searchInputTxt = document.getElementById("search");
 searchInputTxt.addEventListener("keypress", function(event) {
-  toggleSpinner();
     if (event.key == "Enter")
         searchButton.click();
 });
@@ -79,9 +78,8 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
 
-  const durationTime = document.getElementById('duration').value;
+  const durationTime = document.getElementById('duration').value || 1000;
   if(durationTime >+ 1){
-      const duration = document.getElementById('duration').value || 1000;
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";
@@ -94,7 +92,7 @@ const createSlider = () => {
     timer = setInterval(function () {
       slideIndex++;
       changeSlide(slideIndex);
-    }, duration);
+    }, durationTime);
   }else{
     alert("Negetive number don't be supporeted");
     imagesArea.style.display = 'block';

@@ -79,7 +79,7 @@ const createSlider = () => {
   imagesArea.style.display = 'none';
 
   const durationTime = document.getElementById('duration').value || 1000;
-  if(durationTime >+ 1){
+  if(durationTime >= 1){
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";
@@ -94,7 +94,7 @@ const createSlider = () => {
       changeSlide(slideIndex);
     }, durationTime);
   }else{
-    alert("Negetive number don't be supporeted");
+    alert("Negetive duration don't be supporeted");
     imagesArea.style.display = 'block';
   }
 }

@@ -9,6 +9,7 @@ const sliderContainer = document.getElementById('sliders');
 const searchButton = document.getElementById("search-btn");
 const searchInputTxt = document.getElementById("search");
 searchInputTxt.addEventListener("keypress", function(event) {
+  toggleSpinner();
     if (event.key == "Enter")
         searchButton.click();
 });
@@ -30,7 +31,6 @@ const showImages = (images) => {
   // show gallery title
   galleryHeader.style.display = 'flex';
   images.forEach(image => {
-    // console.log(image)
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
@@ -49,13 +49,14 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
+  element.classList.toggle("added");
  
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-  } 
-  
+  }else{
+    sliders.splice(item, 1)
+  }
 }
 var timer
 const createSlider = () => {
@@ -77,20 +78,27 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value;
-  sliders.forEach(slide => {
-    let item = document.createElement('div')
-    item.className = "slider-item";
-    item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
-    sliderContainer.appendChild(item)
-  })
-  changeSlide(0)
-  timer = setInterval(function () {
-    slideIndex++;
-    changeSlide(slideIndex);
-  }, duration);
+
+  const durationTime = document.getElementById('duration').value;
+  if(durationTime >+ 1){
+      const duration = document.getElementById('duration').value || 1000;
+    sliders.forEach(slide => {
+      let item = document.createElement('div')
+      item.className = "slider-item";
+      item.innerHTML = `<img class="w-100"
+      src="${slide}"
+      alt="">`;
+      sliderContainer.appendChild(item)
+    })
+    changeSlide(0)
+    timer = setInterval(function () {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }, duration);
+  }else{
+    alert("Negetive number don't be supporeted");
+    imagesArea.style.display = 'block';
+  }
 }
 
 // change slider index 
@@ -130,3 +138,10 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+
+// spinner
+const toggleSpinner = () => {
+  const spinner = document.getElementById("loading-spinner");
+  spinner.classList.toggle("d-none")
+}

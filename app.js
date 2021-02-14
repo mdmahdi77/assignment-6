@@ -136,10 +136,3 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
-
-
-// spinner
-const toggleSpinner = () => {
-  const spinner = document.getElementById("loading-spinner");
-  spinner.classList.toggle("d-none")
-}
